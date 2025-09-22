@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Literacy Survey Analysis - Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 20px 0 15px 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .highlight-box h2 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            border: none;
+        }
+
+        .highlight-box p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #3498db;
+        }
+
+        .stat-card h3 {
+            color: #3498db;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .chart-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .question-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .question-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .question-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .question-table tr:hover {
+            background: #e3f2fd;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .score-low { background: #e74c3c; color: white; }
+        .score-medium { background: #f39c12; color: white; }
+        .score-high { background: #27ae60; color: white; }
+
+        .recommendations {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .recommendations h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendations li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .recommendations li:before {
+            content: "✓ ";
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .toc {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .toc h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 5px 0;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Financial Literacy Survey Analysis</h1>
+            <p>Student Project - Analysis of Financial Knowledge</p>
+            <p><strong>Survey Period:</strong> 2024 | <strong>Total Respondents:</strong> 1,236 Students</p>
+        </div>
+
+        <div class="toc">
+            <h3>📋 Table of Contents</h3>
+            <ul>
+                <li><a href="#executive-summary">Executive Summary</a></li>
+                <li><a href="#key-findings">Key Findings</a></li>
+                <li><a href="#score-distribution">Score Distribution</a></li>
+                <li><a href="#question-analysis">Question-wise Analysis</a></li>
+                <li><a href="#visualizations">Data Visualizations</a></li>
+                <li><a href="#recommendations">Recommendations</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </div>
+
+        <div class="highlight-box" id="executive-summary">
+            <h2>10.03%</h2>
+            <p>Overall Financial Literacy Rate</p>
+            <p><strong>124 out of 1,236 students</strong> met the 70% literacy threshold</p>
+        </div>
+
+        <div class="section" id="key-findings">
+            <h2>🎯 Key Findings</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>1,236</h3>
+                    <p>Total Students Surveyed</p>
+                </div>
+                <div class="stat-card">
+                    <h3>124</h3>
+                    <p>Students Meeting Literacy Threshold</p>
+                </div>
+                <div class="stat-card">
+                    <h3>36.82%</h3>
+                    <p>Average Score</p>
+                </div>
+                <div class="stat-card">
+                    <h3>35.00%</h3>
+                    <p>Median Score</p>
+                </div>
+            </div>
+
+            <h3>📈 Statistical Overview</h3>
+            <ul>
+                <li><strong>Highest Score:</strong> 100%</li>
+                <li><strong>Lowest Score:</strong> 0%</li>
+                <li><strong>Standard Deviation:</strong> 17.44%</li>
+                <li><strong>Most Common Score Range:</strong> 21-40% (54.1% of students)</li>
+            </ul>
+        </div>
+
+        <div class="section" id="score-distribution">
+            <h2>📊 Score Distribution Analysis</h2>
+            
+            <table class="question-table">
+                <thead>
+                    <tr>
+                        <th>Score Range</th>
+                        <th>Number of Students</th>
+                        <th>Percentage</th>
+                        <th>Literacy Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0-20%</td>
+                        <td>237</td>
+                        <td>19.2%</td>
+                        <td><span class="score-badge score-low">Below Threshold</span></td>
+                    </tr>
+                    <tr>
+                        <td>21-40%</td>
+                        <td>669</td>
+                        <td>54.1%</td>
+                        <td><span class="score-badge score-low">Below Threshold</span></td>
+                    </tr>
+                    <tr>
+                        <td>41-60%</td>
+                        <td>176</td>
+                        <td>14.2%</td>
+                        <td><span class="score-badge score-medium">Approaching</span></td>
+                    </tr>
+                    <tr>
+                        <td>61-80%</td>
+                        <td>143</td>
+                        <td>11.6%</td>
+                        <td><span class="score-badge score-high">Literate</span></td>
+                    </tr>
+                    <tr>
+                        <td>81-100%</td>
+                        <td>11</td>
+                        <td>0.9%</td>
+                        <td><span class="score-badge score-high">Highly Literate</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="chart-container">
+                <h3>📈 Score Distribution Visualization</h3>
+                <img src="financial_literacy_analysis.png" alt="Financial Literacy Analysis Charts" />
+            </div>
+        </div>
+
+        <div class="section" id="question-analysis">
+            <h2>❓ Question-wise Performance Analysis</h2>
+            
+            <h3>🏆 Best Performing Questions</h3>
+            <table class="question-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Topic</th>
+                        <th>Correct %</th>
+                        <th>Correct Answer</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20</td>
+                        <td>Responsible spending on wants</td>
+                        <td>57.0%</td>
+                        <td>B</td>
+                        <td><span class="score-badge score-high">Excellent</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Financial literacy definition</td>
+                        <td>49.9%</td>
+                        <td>B</td>
+                        <td><span class="score-badge score-high">Good</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Active income recognition</td>
+                        <td>48.0%</td>
+                        <td>B</td>
+                        <td><span class="score-badge score-high">Good</span></td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Entrepreneurial profit motive</td>
+                        <td>47.1%</td>
+                        <td>B</td>
+                        <td><span class="score-badge score-medium">Fair</span></td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Gross profit calculation</td>
+                        <td>44.2%</td>
+                        <td>C</td>
+                        <td><span class="score-badge score-medium">Fair</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>⚠️ Most Challenging Questions</h3>
+            <table class="question-table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Topic</th>
+                        <th>Correct %</th>
+                        <th>Correct Answer</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6</td>
+                        <td>Passive income strategies</td>
+                        <td>24.4%</td>
+                        <td>A</td>
+                        <td><span class="score-badge score-low">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Gross vs. net pay deductions</td>
+                        <td>24.9%</td>
+                        <td>C</td>
+                        <td><span class="score-badge score-low">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Entrepreneurial ventures</td>
+                        <td>27.5%</td>
+                        <td>C</td>
+                        <td><span class="score-badge score-low">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Long-term savings goals</td>
+                        <td>28.3%</td>
+                        <td>B</td>
+                        <td><span class="score-badge score-low">Poor</span></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>"Pay yourself first" principle</td>
+                        <td>29.8%</td>
+                        <td>B</td>
+                        <td><span class="score-badge score-low">Poor</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="chart-container">
+                <h3>📊 Detailed Question Performance</h3>
+                <img src="question_wise_analysis.png" alt="Question-wise Analysis Chart" />
+            </div>
+        </div>
+
+        <div class="section" id="visualizations">
+            <h2>📈 Data Visualizations</h2>
+            <p>The following visualizations provide comprehensive insights into the financial literacy survey results:</p>
+            
+            <div class="chart-container">
+                <h3>Overall Analysis Dashboard</h3>
+                <img src="financial_literacy_analysis.png" alt="Financial Literacy Analysis Dashboard" />
+                <p><em>This dashboard shows score distribution, literacy status, question performance, and score range analysis.</em></p>
+            </div>
+        </div>
+
+        <div class="recommendations" id="recommendations">
+            <h2>💡 Recommendations & Action Plan</h2>
+            
+            <h3>Immediate Actions Required</h3>
+            <ul>
+                <li>Develop targeted curriculum focusing on the lowest-performing question areas</li>
+                <li>Implement comprehensive financial education programs for the 89.97% below literacy threshold</li>
+                <li>Create interactive learning modules for complex concepts like passive income</li>
+                <li>Address critical knowledge gaps in payroll understanding and entrepreneurial concepts</li>
+            </ul>
+
+            <h3>Priority Educational Areas</h3>
+            <ul>
+                <li><strong>Income Generation Strategies</strong> (Questions 6, 7) - Only 24.4-30.0% correct</li>
+                <li><strong>Basic Payroll Understanding</strong> (Question 1) - Only 24.9% correct</li>
+                <li><strong>Entrepreneurial Concepts</strong> (Questions 8, 18) - 27.5-47.1% correct</li>
+                <li><strong>Financial Planning</strong> (Questions 9, 10, 11) - 28.3-33.8% correct</li>
+                <li><strong>Consumer Decision-Making</strong> (Questions 13, 14, 15) - 31.5-42.4% correct</li>
+            </ul>
+
+            <h3>Long-term Strategies</h3>
+            <ul>
+                <li>Implement quarterly financial literacy assessments to track progress</li>
+                <li>Develop progressive learning pathways from basic to advanced concepts</li>
+                <li>Integrate real-world scenarios and practical case studies</li>
+                <li>Establish partnerships with financial institutions for practical learning</li>
+            </ul>
+
+            <h3>Success Metrics</h3>
+            <ul>
+                <li><strong>Target:</strong> Increase literacy rate from 10.03% to 50% within one year</li>
+                <li><strong>Monitor:</strong> Track improvement in lowest-performing question areas</li>
+                <li><strong>Evaluate:</strong> Regular assessment of educational intervention effectiveness</li>
+            </ul>
+        </div>
+
+        <div class="section" id="conclusion">
+            <h2>🎯 Conclusion</h2>
+            
+            <p>The financial literacy survey reveals a <strong>significant knowledge gap</strong> among students, with only <strong>10.03%</strong> meeting the established literacy threshold of 70% or above. This represents a critical need for immediate educational intervention.</p>
+
+            <h3>Key Takeaways:</h3>
+            <ul>
+                <li><strong>89.97% of students</strong> require financial education support</li>
+                <li><strong>Critical gaps</strong> exist in income generation and payroll understanding</li>
+                <li><strong>Strong foundation</strong> in consumer awareness and basic financial concepts</li>
+                <li><strong>Clear roadmap</strong> for targeted educational interventions</li>
+            </ul>
+
+            <p>The detailed analysis provides a comprehensive baseline for measuring financial literacy and establishes specific areas for educational focus. With targeted interventions addressing the identified knowledge gaps, significant improvements in financial literacy outcomes can be achieved.</p>
+        </div>
+
+        <div class="footer">
+            <h3>📊 Student Project</h3>
+            <p><strong>Total Questions:</strong> 20 | <strong>Literacy Threshold:</strong> 70% | <strong>Analysis Date:</strong> 2024</p>
+            <p><em>Student project analyzing survey data of 1,236 students across 20 financial literacy questions.</em></p>
+        </div>
+    </div>
+</body>
+</html>
